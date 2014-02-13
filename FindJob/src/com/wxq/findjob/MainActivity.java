@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,6 +29,8 @@ public class MainActivity extends Activity {
 	
 	Handler handler = new Handler();
 	List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+	
+	AlertDialog alertDialog ;
 	
 	Runnable searchRunnable = new Runnable() {
 		
@@ -54,6 +57,7 @@ public class MainActivity extends Activity {
 				@Override
 				public void run() {
 					mAdapter.notifyDataSetChanged();
+					alertDialog.dismiss();
 				}
 			});
 		}
@@ -63,6 +67,11 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		alertDialog = new AlertDialog.Builder(this)
+		.setMessage("正在请求,请稍后...")
+		.setCancelable(false)
+		.create();
 		
 		keywordsEt = (EditText) findViewById(R.id.etxt_keywords);
 		pagesEt = (EditText) findViewById(R.id.etxt_pages);
@@ -94,6 +103,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				Thread thread = new Thread(searchRunnable);
 				thread.start();
+				alertDialog.show();
 			}
 		});
 		

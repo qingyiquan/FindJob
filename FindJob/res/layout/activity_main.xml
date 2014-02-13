@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="请输入关键字:android,..."
-        android:text="校园,校招,应届,移动 ,android,ios,java"/>
+        android:text="校园,校招,应届,移动,android,ios,java"/>
     
     <EditText 
         android:id="@+id/etxt_pages"
